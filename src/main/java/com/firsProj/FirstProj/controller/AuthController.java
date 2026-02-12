@@ -1,6 +1,6 @@
 package com.firsProj.FirstProj.controller;
 
-import com.firsProj.FirstProj.model.dto.UserDto;
+import com.firsProj.FirstProj.model.dto.UserResponseDto;
 import com.firsProj.FirstProj.model.dto.UserLoginDto;
 import com.firsProj.FirstProj.model.dto.UserRegistrationRequestDto;
 import com.firsProj.FirstProj.repository.UserRepository;
@@ -46,7 +46,7 @@ public class AuthController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<UserDto> createUser(@Valid @RequestBody UserRegistrationRequestDto user) {
+    public Mono<UserResponseDto> createUser(@Valid @RequestBody UserRegistrationRequestDto user) {
         return userService.saveUser(user);
     }
 }

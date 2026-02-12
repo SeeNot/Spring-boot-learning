@@ -1,6 +1,6 @@
 package com.firsProj.FirstProj.model.dto;
 
-public record UserDto(
+public record UserResponseDto(
         String username,
         String email
 ) {
