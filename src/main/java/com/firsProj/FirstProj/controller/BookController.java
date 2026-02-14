@@ -5,7 +5,9 @@ import com.firsProj.FirstProj.model.dto.BookResponseDto;
 import com.firsProj.FirstProj.service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -27,5 +29,13 @@ public class BookController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Mono<Void> deleteBook(@PathVariable Long id) {
         return bookService.delete(id);
+    }
+
+    @PatchMapping("/assign/{id}")
+    public Mono<BookResponseDto> assignBookToCurrent(@PathVariable Long id, @AuthenticationPrincipal String email) {
+        if (email == null) {
+            return Mono.error(new ResponseStatusException(HttpStatus.UNAUTHORIZED));
+        }
+        return bookService.assignBookToCurrent(id, email);
     }
 }
